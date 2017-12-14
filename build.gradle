@@ -15,8 +15,13 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
 group = 'com.eland'
-version = '0.0.1'
+version = '1.0.0(prd)'
 sourceCompatibility = 1.8
+
+compileJava {
+  options.encoding = "UTF-8"
+}
+
 
 repositories {
 	mavenCentral()

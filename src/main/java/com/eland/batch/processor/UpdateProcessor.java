@@ -9,8 +9,6 @@ public class UpdateProcessor implements ItemProcessor<DailyPlantTotalData, Daily
 	@Override
 	public DailyPlantTotalData process(DailyPlantTotalData item) throws Exception {
 		// TODO Auto-generated method stub
-	
-		
 		
 		if(item.getTotalCustomer()==null) item.setTotalCustomer(0);
 		if(item.getTotalEntrance()==null) item.setTotalEntrance(0);
@@ -22,6 +20,7 @@ public class UpdateProcessor implements ItemProcessor<DailyPlantTotalData, Daily
 		double rate = 1-((double)item.getTotalEntrance()/(double)item.getTotalCustomer());
 	
 		item.setLeaveRate(rate);
+		
 		
 		
 		return item;

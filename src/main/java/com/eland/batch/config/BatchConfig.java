@@ -38,10 +38,10 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import com.eland.batch.dto.DailyPlantTotalData;
-import com.eland.batch.utils.CurrentDate;
+
 import com.eland.batch.implement.BatchJobCompletionListener;
 import com.eland.batch.processor.CreateProcessor;
-import com.eland.batch.processor.Update2Processor;
+
 import com.eland.batch.processor.UpdateProcessor;
 
 
@@ -58,7 +58,7 @@ public class BatchConfig {
 	private Job createJob;
 	
 	
-	@Scheduled(fixedRate=100000)
+	@Scheduled(cron ="0 0 3 * * ?")
 	public void createDailyTable(){
 		try{
 			System.out.println("batch 시작");
@@ -121,8 +121,8 @@ public class BatchConfig {
 				LocalDate today= LocalDate.now();
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 						
-//				String yesterDay = today.minusDays(1).format( formatter );
-				String yesterDay = today.format( formatter );
+				String yesterDay = today.minusDays(1).format( formatter );
+//				String yesterDay = today.format( formatter );
 				ps.setString(1, yesterDay);
 				
 			}
@@ -190,7 +190,7 @@ public class BatchConfig {
 	@Bean
 	public ItemReader<DailyPlantTotalData> updateReader(DataSource dataSource){
 		String query = 
-			"SELECT a.sale_date , a.plant_code , a.total_customer ,b.total_entrance , b.avg_wait_time , max.max_wait_time, DATE_FORMAT(max.max_wait_order_time , '%H:%i:%s') as max_wait_order_time "
+			"SELECT a.sale_date , a.plant_code , a.total_customer ,b.total_entrance , (b.avg_wait_time/b.total_entrance) as , max.max_wait_time, DATE_FORMAT(max.max_wait_order_time , '%H:%i:%s') as max_wait_order_time "
 			+ ", min.min_wait_time  , DATE_FORMAT(min.min_wait_order_time , '%H:%i:%s') as min_wait_order_time  "
 			+", f.total_kakao , g.total_print  , h.total_noshow , i.first_wait_order_time , i.last_wait_order_time "
 			+"FROM daily_plant_total_data as a " 
@@ -294,8 +294,8 @@ public class BatchConfig {
 				
 				LocalDate today= LocalDate.now();
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-//				String yesterDay = today.minusDays(1).format( formatter );
-				String yesterDay = today.format( formatter );
+				String yesterDay = today.minusDays(1).format( formatter );
+//				String yesterDay = today.format( formatter );
 				ps.setString(1, yesterDay);
 				ps.setString(2, yesterDay);
 				ps.setString(3, yesterDay);
