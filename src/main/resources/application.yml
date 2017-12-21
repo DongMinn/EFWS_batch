@@ -28,22 +28,10 @@ spring:
      
   datasource:
 ## 회사 개발 DB의 efws_app 계정
-    url: jdbc:mysql://KRVAEFWSDBQA01:3306/efws_qas?useSSL=false
-    username: efws_app
-    password: efws862app*
+    url: jdbc:mysql://
+    username: 아이디
+    password: 비번
     driver-class-name: com.mysql.jdbc.Driver
-
-
-# 회사 운영 DB의 efws_app 계정
-#    url: jdbc:mysql://KRVAEFWSDB01:3306/efws?useSSL=false
-#    username: efws_app
-#    password: efws862app*
-#    driver-class-name: com.mysql.jdbc.Driver
-    
-# 기홍 개인 DB(비밀번호 없음, 회사 외부에서 가능)
-#    url: jdbc:mysql://helpot.iptime.org:3306/efws?useSSL=false
-#    username: EFWS
-#    password: elandFood12!@
 
 # 각자 노트북의 DB
 #    url: jdbc:mysql://localhost:3306/efws?useSSL=false
